@@ -7,6 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1cVIy2vuGiXnlGJMDN0-5H82D7fxG9nM5
 """
 
+pip install streamlit_option_menu
+
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -50,4 +52,6 @@ if selected == 'Cholera Prediction':
     if st.button('Predict Case Status'):
         case_status = predict_case(diarrhoea, vomiting, dehydration, abdominal_pain, headache, age)
         st.success(f'Case Status: {case_status}')
+
+
 
