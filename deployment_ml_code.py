@@ -12,7 +12,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 #Load saved model
-cholera_model = pickle.load(open('/content/drive/MyDrive/cholera_model.sav', 'rb'))
+cholera_model = pickle.load(open('cholera_model.sav', 'rb'))
 
 import streamlit as st
 from streamlit_option_menu import option_menu
