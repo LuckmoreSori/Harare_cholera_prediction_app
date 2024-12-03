@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1cVIy2vuGiXnlGJMDN0-5H82D7fxG9nM5
 """
 
-pip install streamlit_option_menu
-
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -18,14 +16,6 @@ cholera_model = pickle.load(open('cholera_model.sav', 'rb'))
 
 import streamlit as st
 from streamlit_option_menu import option_menu
-
-# Function to predict case status based on user inputs
-def predict_case(diarrhoea, vomiting, dehydration, abdominal_pain, headache, age):
-    # Dummy prediction logic for demonstration
-    # Replace this with your actual model's prediction logic
-    if diarrhoea and vomiting and dehydration:
-        return "Positive"
-    return "Negative"
 
 # Sidebar for navigation
 with st.sidebar:
