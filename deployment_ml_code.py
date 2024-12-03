@@ -24,23 +24,30 @@ if hasattr(cholera_model, 'predict'):
 else:
     print("The predict method does not exist.")
 
-# Function to predict case status based on user inputs
 def predict_case(diarrhoea, vomiting, dehydration, abdominal_pain, headache, age):
     # Convert boolean inputs to integers
     input_data = [[int(diarrhoea), int(vomiting), int(dehydration), int(abdominal_pain), int(headache), age]]
 
     # Use the model to make a prediction
-    prediction = cholera_model.predict(input_data)
+    if hasattr(cholera_model, 'predict_proba'):
+        prediction = cholera_model.predict_proba(input_data)  # Get probabilities
+        print("Prediction probabilities:", prediction)  # Print the probabilities for debugging
 
-    # Debugging output
-    print("Input data:", input_data)  # Print the formatted input data
-    print("Model prediction:", prediction)  # Print the model's prediction
-
-    # Return the case status as "Positive" or "Negative"
-    if prediction[0] == 1:  # Assuming 1 means Positive
-        return "Positive"
+        # Adjust threshold for positive class
+        threshold = 0.5  # Change this if needed
+        if prediction[0][1] > threshold:  # Assuming index 1 is the positive class
+            return "Positive"
+        else:
+            return "Negative"
     else:
-        return "Negative"
+        prediction = cholera_model.predict(input_data)
+        print("Model prediction:", prediction)  # Print the model's prediction
+
+        # Return the case status as "Positive" or "Negative"
+        if prediction[0] == 1:  # Assuming 1 means Positive
+            return "Positive"
+        else:
+            return "Negative"
 
 
 # Sidebar for navigation
