@@ -14,8 +14,19 @@ from streamlit_option_menu import option_menu
 #Load saved model
 cholera_model = pickle.load(open('cholera_model.sav', 'rb'))
 
-import streamlit as st
-from streamlit_option_menu import option_menu
+# Function to predict case status based on user inputs
+def predict_case(diarrhoea, vomiting, dehydration, abdominal_pain, headache, age):
+    # Prepare input data for the model
+    input_data = [[diarrhoea, vomiting, dehydration, abdominal_pain, headache, age]]
+    
+    # Use the model to make a prediction
+    prediction = cholera_model.predict(input_data)
+
+    # Return the case status as "Positive" or "Negative"
+    if prediction[0] == 1:  # Assuming 1 means Positive
+        return "Positive"
+    else:
+        return "Negative"
 
 # Sidebar for navigation
 with st.sidebar:
