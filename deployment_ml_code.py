@@ -11,8 +11,18 @@ import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-#Load saved model
-cholera_model = pickle.load(open('cholera_model.sav', 'rb'))
+# Load the model
+try:
+    cholera_model = pickle.load(open('cholera_model.sav', 'rb'))
+    print(type(cholera_model))  # Print the type of the loaded model
+except Exception as e:
+    print(f"Error loading model: {e}")
+
+# Check if the model has the predict method
+if hasattr(cholera_model, 'predict'):
+    print("The predict method exists.")
+else:
+    print("The predict method does not exist.")
 
 # Function to predict case status based on user inputs
 def predict_case(diarrhoea, vomiting, dehydration, abdominal_pain, headache, age):
