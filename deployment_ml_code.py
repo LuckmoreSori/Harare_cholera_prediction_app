@@ -26,10 +26,9 @@ else:
 
 # Function to predict case status based on user inputs
 def predict_case(diarrhoea, vomiting, dehydration, abdominal_pain, headache, age):
-    # Convert boolean inputs (True/False) to integers (1/0)
-    input_data = [[int(diarrhoea), int(vomiting), int(dehydration), int(abdominal_pain), int(headache), age]]
-
     # Use the model to make a prediction
+    input_data = [[diarrhoea, vomiting, dehydration, abdominal_pain, headache, age]]
+
     prediction = cholera_model.predict(input_data)
 
     # Debugging output
@@ -55,13 +54,20 @@ if selected == 'Cholera Prediction':
     st.title('Cholera Prediction Model')
     st.write('Please input the following details to predict the case status.')
 
-    # User inputs
-    diarrhoea = st.checkbox('Diarrhoea')
-    vomiting = st.checkbox('Vomiting')
-    dehydration = st.checkbox('Dehydration')
-    abdominal_pain = st.checkbox('Abdominal Pain/Cramps')
-    headache = st.checkbox('Headache')
+    # User inputs using radio buttons
+    diarrhoea = st.radio('Diarrhoea', ('No', 'Yes'))
+    vomiting = st.radio('Vomiting', ('No', 'Yes'))
+    dehydration = st.radio('Dehydration', ('No', 'Yes'))
+    abdominal_pain = st.radio('Abdominal Pain/Cramps', ('No', 'Yes'))
+    headache = st.radio('Headache', ('No', 'Yes'))
     age = st.number_input('Age', min_value=0, max_value=120)
+
+    # Convert "Yes" to 1 and "No" to 0
+    diarrhoea = 1 if diarrhoea == 'Yes' else 0
+    vomiting = 1 if vomiting == 'Yes' else 0
+    dehydration = 1 if dehydration == 'Yes' else 0
+    abdominal_pain = 1 if abdominal_pain == 'Yes' else 0
+    headache = 1 if headache == 'Yes' else 0
 
     # Button to predict case status
     if st.button('Predict Case Status'):
